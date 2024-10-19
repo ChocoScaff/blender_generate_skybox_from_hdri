@@ -1,7 +1,11 @@
 from PIL import Image
 
 # Define the filenames for the six skybox textures
-skyname = "skybox_"
+# Set your skybox name here
+blend_file_path = bpy.data.filepath
+# Extract the file name without the extension
+blend_file_name = os.path.splitext(os.path.basename(blend_file_path))[0]
+skyname = blend_file_name
 file_names = {
     "Front": f"{skyname}FT.tga",
     "Left": f"{skyname}LF.tga",

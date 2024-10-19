@@ -13,7 +13,11 @@ def render_cubemap_face(output_dir, skyname, camera_rot, face_name):
     bpy.ops.render.render(write_still=True)
 
 # Set your skybox name here
-skyname = "skybox_"
+blend_file_path = bpy.data.filepath
+# Extract the file name without the extension
+blend_file_name = os.path.splitext(os.path.basename(blend_file_path))[0]
+
+skyname = blend_file_name
 
 # Output directory (same folder as the .blend file or specify your own path)
 output_dir = bpy.path.abspath("//")
