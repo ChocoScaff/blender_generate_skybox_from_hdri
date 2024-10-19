@@ -6,6 +6,7 @@ blend_file_path = bpy.data.filepath
 # Extract the file name without the extension
 blend_file_name = os.path.splitext(os.path.basename(blend_file_path))[0]
 skyname = blend_file_name
+
 file_names = {
     "Front": f"{skyname}FT.tga",
     "Left": f"{skyname}LF.tga",
@@ -15,13 +16,14 @@ file_names = {
     "Down": f"{skyname}DN.tga"
 }
 
+path = bpy.path.abspath("//")
 # Load the six images
-front = Image.open(file_names["Front"])
-left = Image.open(file_names["Left"])
-back = Image.open(file_names["Back"])
-right = Image.open(file_names["Right"])
-up = Image.open(file_names["Up"])
-down = Image.open(file_names["Down"])
+front = Image.open(path + file_names["Front"])
+left = Image.open(path + file_names["Left"])
+back = Image.open(path + file_names["Back"])
+right = Image.open(path + file_names["Right"])
+up = Image.open(path + file_names["Up"])
+down = Image.open(path + file_names["Down"])
 
 # Get the size of one image (assuming all images have the same size)
 width, height = front.size
@@ -44,5 +46,5 @@ output_image.paste(right, (3 * width, 1 * height))  # Right
 output_image.paste(down, (2 * width, 2 * height))   # Down
 
 # Save the final composite image as a .TGA file
-output_image.save(f"{skyname}stitched.tga")
+output_image.save(f"{path}/{skyname}_stitched.tga")
 print(f"Stitched image saved as {skyname}stitched.tga")

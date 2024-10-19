@@ -38,7 +38,7 @@ blend_file_path = bpy.data.filepath
 blend_file_name = os.path.splitext(os.path.basename(blend_file_path))[0]
 
 skybox_name = blend_file_name  # Change this to your desired skybox name
-output_dir = "./skybox"  # Change this to your desired output directory
+output_dir = bpy.path.abspath("//") + "./skybox"  # Change this to your desired output directory
 
 # Call the function to generate VMT files
 generate_vmt(skybox_name, output_dir)
