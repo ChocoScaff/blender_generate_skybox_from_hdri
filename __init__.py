@@ -73,21 +73,25 @@ class ExecutePythonFilesPanel(bpy.types.Panel):
         layout.operator("wm.execute_file_3", text="Skybox_Generate_VMT")
 
 def install_pillow():
-    """ Function to check and install Pillow if it's not already installed. """
+    """Function to check and install Pillow if it's not already installed."""
     try:
         import PIL  # Try importing Pillow to see if it's already installed
         print("Pillow is already installed.")
     except ImportError:
         # Pillow not found, install it using Blender's Python environment
-        python_executable = sys.executable
-        print(f"Installing Pillow using: {python_executable}")
-        subprocess.call([python_executable, "-m", "ensurepip", "--upgrade"])
-        subprocess.call([python_executable, "-m", "pip", "install", "--upgrade", "pip"])
-        subprocess.call([python_executable, "-m", "pip", "install", "Pillow"])
-        print("Pillow has been installed.")
+        try:
+            python_executable = sys.executable
+            print(f"Installing Pillow using: {python_executable}")
+            subprocess.check_call([python_executable, "-m", "ensurepip", "--upgrade"])
+            subprocess.check_call([python_executable, "-m", "pip", "install", "--upgrade", "pip"])
+            subprocess.check_call([python_executable, "-m", "pip", "install", "Pillow"])
+            print("Pillow has been installed.")
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to install Pillow: {e}")
 
 # Register and Unregister the classes
 def register():
+    install_pillow()
     bpy.utils.register_class(Skybox_Blender)
     bpy.utils.register_class(Skybox_Stiched)
     bpy.utils.register_class(Skybox_Generate_VMT)
@@ -100,5 +104,4 @@ def unregister():
     bpy.utils.unregister_class(ExecutePythonFilesPanel)
 
 if __name__ == "__main__":
-    install_pillow()
     register()
