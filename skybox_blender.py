@@ -49,8 +49,8 @@ face_rotations = {
     "LF": (1.5708, 0, -1.5708),                 # Front
     "RT": (1.5708, 0, 1.5708),            # Left
     "FT": (1.5708, 0, 0),           # Right
-    "UP": (0, 3.14159, 0),           # Up
-    "DN": (0, 0, 3.14159),           # Down
+    "UP": (0, 3.14159, -1.5708),           # Up
+    "DN": (0, 0, 1.5708),           # Down
 }
 
 # Loop through each face and render it

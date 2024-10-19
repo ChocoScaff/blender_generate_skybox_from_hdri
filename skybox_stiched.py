@@ -1,4 +1,6 @@
 from PIL import Image
+import bpy
+import os
 
 # Define the filenames for the six skybox textures
 # Set your skybox name here
@@ -38,12 +40,12 @@ output_image = Image.new('RGB', (4 * width, 3 * height), color=(128, 128, 128))
 #   [Front, Left, Back, Right]
 #   [  X,  X, Down,  X ]
 
-output_image.paste(up, (2 * width, 0 * height))     # Up
+output_image.paste(up, (3 * width, 0 * height))     # Up
 output_image.paste(front, (0 * width, 1 * height))  # Front
 output_image.paste(left, (1 * width, 1 * height))   # Left
 output_image.paste(back, (2 * width, 1 * height))   # Back
 output_image.paste(right, (3 * width, 1 * height))  # Right
-output_image.paste(down, (2 * width, 2 * height))   # Down
+output_image.paste(down, (3 * width, 2 * height))   # Down
 
 # Save the final composite image as a .TGA file
 output_image.save(f"{path}/{skyname}_stitched.tga")

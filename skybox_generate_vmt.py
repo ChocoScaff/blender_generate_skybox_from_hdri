@@ -1,4 +1,5 @@
 import os
+import bpy
 
 # Function to generate a VMT file for each cubemap face
 def generate_vmt(skybox_name, output_dir):
