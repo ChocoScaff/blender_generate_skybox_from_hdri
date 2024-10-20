@@ -1,5 +1,5 @@
 bl_info = {
-    "name": "Execute Python Files",
+    "name": "Blender_generate_skybox",
     "blender": (4, 1, 0),  # Adjust this depending on your Blender version
     "category": "Object",
     "version": (0, 1),
