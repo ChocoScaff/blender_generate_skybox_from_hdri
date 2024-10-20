@@ -1,5 +1,6 @@
 import bpy
 import os
+import configparser
 
 # Function to render and save the cubemap face
 def render_cubemap_face(output_dir, skyname, camera_rot, face_name):
@@ -12,12 +13,14 @@ def render_cubemap_face(output_dir, skyname, camera_rot, face_name):
     # Render the image
     bpy.ops.render.render(write_still=True)
 
-# Set your skybox name here
-blend_file_path = bpy.data.filepath
-# Extract the file name without the extension
-blend_file_name = os.path.splitext(os.path.basename(blend_file_path))[0]
+def get_skybox_settings(ini_file='settings.ini'):
+    config = configparser.ConfigParser()
+    config.read(ini_file)
+    skybox_name = config.get('Skybox', 'name')
+    resolution = config.get('Skybox', 'resolution')
+    return skybox_name, resolution
 
-skyname = blend_file_name
+skyname, resolution = get_skybox_settings()
 
 # Output directory (same folder as the .blend file or specify your own path)
 output_dir = bpy.path.abspath("//")

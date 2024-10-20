@@ -1,5 +1,15 @@
 import os
 import bpy
+import configparser
+
+
+
+def get_skybox_settings(ini_file='settings.ini'):
+    config = configparser.ConfigParser()
+    config.read(ini_file)
+    skybox_name = config.get('Skybox', 'name')
+    resolution = config.get('Skybox', 'resolution')
+    return skybox_name, resolution
 
 # Function to generate a VMT file for each cubemap face
 def generate_vmt(skybox_name, output_dir):
@@ -33,12 +43,8 @@ def generate_vmt(skybox_name, output_dir):
         print(f"Generated {file_name} in {output_dir}")
 
 # Input skybox name and output directory
-# Set your skybox name here
-blend_file_path = bpy.data.filepath
-# Extract the file name without the extension
-blend_file_name = os.path.splitext(os.path.basename(blend_file_path))[0]
+skybox_name, resolution = get_skybox_settings()
 
-skybox_name = blend_file_name  # Change this to your desired skybox name
 output_dir = bpy.path.abspath("//") + "./skybox"  # Change this to your desired output directory
 
 # Call the function to generate VMT files

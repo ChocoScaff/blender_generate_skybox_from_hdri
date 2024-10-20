@@ -1,13 +1,18 @@
 from PIL import Image
 import bpy
 import os
+import configparser
+
+
+def get_skybox_settings(ini_file='settings.ini'):
+    config = configparser.ConfigParser()
+    config.read(ini_file)
+    skybox_name = config.get('Skybox', 'name')
+    resolution = config.get('Skybox', 'resolution')
+    return skybox_name, resolution
 
 # Define the filenames for the six skybox textures
-# Set your skybox name here
-blend_file_path = bpy.data.filepath
-# Extract the file name without the extension
-blend_file_name = os.path.splitext(os.path.basename(blend_file_path))[0]
-skyname = blend_file_name
+skyname, resolution = get_skybox_settings(
 
 file_names = {
     "Front": f"{skyname}FT.tga",
