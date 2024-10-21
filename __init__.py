@@ -11,6 +11,7 @@ import bpy
 import os
 import configparser
 import subprocess
+import sys
 
 # Function to get the add-on directory
 def get_addon_directory():
