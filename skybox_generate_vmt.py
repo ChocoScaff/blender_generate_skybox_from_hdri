@@ -16,7 +16,7 @@ def generate_vmt(skybox_name, output_dir):
     # VMT template with escaped curly braces
     vmt_template = '''"UnlitGeneric"
 {{
-    "$basetexture" "skybox/{texture_name}"
+    "$basetexture" "{texture_name}"
     "$translucent" 1
 }}'''
     
