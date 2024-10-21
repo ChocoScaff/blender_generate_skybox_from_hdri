@@ -56,6 +56,26 @@ def initialize_settings(context):
     else:
         print(f"Skybox section found in {ini_file}")
 
+# New operator to save settings manually
+class SaveSettingsOperator(bpy.types.Operator):
+    """Save Skybox Settings to settings.ini"""
+    bl_idname = "wm.save_skybox_settings"
+    bl_label = "Save Settings"
+
+    def execute(self, context):
+        addon_dir = get_addon_directory()
+        ini_file = os.path.join(addon_dir, 'settings.ini')
+
+        # Get the current values of skybox_name and resolution
+        skybox_name = context.scene.skybox_name
+        resolution = context.scene.texture_resolution
+
+        # Save these values to the settings.ini file
+        write_settings(ini_file, skybox_name, resolution)
+
+        self.report({'INFO'}, f"Settings saved: {skybox_name}, {resolution}")
+        return {'FINISHED'}
+
 # Operators for each button
 class Skybox_Blender(bpy.types.Operator):
     """Execute Python File 1"""
@@ -117,8 +137,12 @@ class ExecutePythonFilesPanel(bpy.types.Panel):
         layout.operator("wm.execute_file_2", text="Skybox_Stiched")
         layout.operator("wm.execute_file_3", text="Skybox_Generate_VMT")
 
+        # Add Save Settings button
+        layout.operator("wm.save_skybox_settings", text="Save Settings")
+
 # Register and Unregister the classes
 def register():
+    bpy.utils.register_class(SaveSettingsOperator)
     bpy.utils.register_class(Skybox_Blender)
     bpy.utils.register_class(Skybox_Stiched)
     bpy.utils.register_class(Skybox_Generate_VMT)
@@ -146,6 +170,7 @@ def unregister():
     bpy.utils.unregister_class(Skybox_Blender)
     bpy.utils.unregister_class(Skybox_Stiched)
     bpy.utils.unregister_class(Skybox_Generate_VMT)
+    bpy.utils.unregister_class(SaveSettingsOperator)
     bpy.utils.unregister_class(ExecutePythonFilesPanel)
     
     # Remove properties from Scene

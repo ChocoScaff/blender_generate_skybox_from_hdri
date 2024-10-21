@@ -6,7 +6,7 @@ import configparser
 
 def get_skybox_settings(ini_file='settings.ini'):
     config = configparser.ConfigParser()
-    config.read(ini_file)
+    config.read(os.path.dirname(__file__) + "/" + ini_file)
     skybox_name = config.get('Skybox', 'name')
     resolution = config.get('Skybox', 'resolution')
     return skybox_name, resolution

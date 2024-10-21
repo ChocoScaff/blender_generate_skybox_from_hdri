@@ -6,13 +6,13 @@ import configparser
 
 def get_skybox_settings(ini_file='settings.ini'):
     config = configparser.ConfigParser()
-    config.read(ini_file)
+    config.read(os.path.dirname(__file__) + "/" + ini_file)
     skybox_name = config.get('Skybox', 'name')
     resolution = config.get('Skybox', 'resolution')
     return skybox_name, resolution
 
 # Define the filenames for the six skybox textures
-skyname, resolution = get_skybox_settings(
+skyname, resolution = get_skybox_settings()
 
 file_names = {
     "Front": f"{skyname}FT.tga",

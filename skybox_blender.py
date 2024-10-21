@@ -15,7 +15,7 @@ def render_cubemap_face(output_dir, skyname, camera_rot, face_name):
 
 def get_skybox_settings(ini_file='settings.ini'):
     config = configparser.ConfigParser()
-    config.read(ini_file)
+    config.read(os.path.dirname(__file__) + "/" + ini_file)
     skybox_name = config.get('Skybox', 'name')
     resolution = config.get('Skybox', 'resolution')
     return skybox_name, resolution
@@ -40,10 +40,12 @@ cam.location = (0.0, 0.0, 0.0)
 # Set camera focal length (optional, adjust if needed)
 cam.data.lens = 18
 
+res_x, res_y = map(int, resolution.split('x'))
+
 # Set output image settings (TGA format, 1024x1024 resolution)
 bpy.context.scene.render.image_settings.file_format = 'TARGA'
-bpy.context.scene.render.resolution_x = 1024
-bpy.context.scene.render.resolution_y = 1024
+bpy.context.scene.render.resolution_x = res_x
+bpy.context.scene.render.resolution_y = res_y
 bpy.context.scene.render.resolution_percentage = 100
 
 # Cubemap face rotations (in radians) for each face (Back, Down, Front, Left, Right, Up)
