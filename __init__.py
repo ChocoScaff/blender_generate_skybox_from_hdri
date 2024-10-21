@@ -10,6 +10,7 @@ bl_info = {
 import bpy
 import os
 import configparser
+import subprocess
 
 # Function to get the add-on directory
 def get_addon_directory():
@@ -140,6 +141,23 @@ class ExecutePythonFilesPanel(bpy.types.Panel):
         # Add Save Settings button
         layout.operator("wm.save_skybox_settings", text="Save Settings")
 
+def install_pillow():
+    """Function to check and install Pillow if it's not already installed."""
+    try:
+        import PIL  # Try importing Pillow to see if it's already installed
+        print("Pillow is already installed.")
+    except ImportError:
+        # Pillow not found, install it using Blender's Python environment
+        try:
+            python_executable = sys.executable
+            print(f"Installing Pillow using: {python_executable}")
+            subprocess.check_call([python_executable, "-m", "ensurepip", "--upgrade"])
+            subprocess.check_call([python_executable, "-m", "pip", "install", "--upgrade", "pip"])
+            subprocess.check_call([python_executable, "-m", "pip", "install", "Pillow"])
+            print("Pillow has been installed.")
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to install Pillow: {e}")
+
 # Register and Unregister the classes
 def register():
     bpy.utils.register_class(SaveSettingsOperator)
@@ -165,6 +183,7 @@ def register():
         description="Name of the skybox",
         default="default_skybox"
     )
+    install_pillow()    
 
 def unregister():
     bpy.utils.unregister_class(Skybox_Blender)
