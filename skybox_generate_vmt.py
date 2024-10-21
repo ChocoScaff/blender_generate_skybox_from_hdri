@@ -45,7 +45,7 @@ def generate_vmt(skybox_name, output_dir):
 # Input skybox name and output directory
 skybox_name, resolution = get_skybox_settings()
 
-output_dir = bpy.path.abspath("//") + "./skybox"  # Change this to your desired output directory
+output_dir = bpy.path.abspath("//")  # Change this to your desired output directory
 
 # Call the function to generate VMT files
 generate_vmt(skybox_name, output_dir)
