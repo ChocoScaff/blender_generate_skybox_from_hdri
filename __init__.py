@@ -134,13 +134,15 @@ class ExecutePythonFilesPanel(bpy.types.Panel):
         # Input for skybox name
         layout.prop(scene, "skybox_name", text="Skybox Name")
 
+        layout.operator("wm.save_skybox_settings", text="Save Settings")
+
         # Create buttons for each operator
         layout.operator("wm.execute_file_1", text="Skybox_Blender")
         layout.operator("wm.execute_file_2", text="Skybox_Stiched")
         layout.operator("wm.execute_file_3", text="Skybox_Generate_VMT")
 
         # Add Save Settings button
-        layout.operator("wm.save_skybox_settings", text="Save Settings")
+        
 
 def install_pillow():
     """Function to check and install Pillow if it's not already installed."""
